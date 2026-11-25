@@ -44,6 +44,9 @@ button { font: inherit; color: inherit; }
 .hdr { display: flex; align-items: center; justify-content: space-between; min-height: 44px; gap: 8px; }
 .brand { display: flex; align-items: center; gap: 10px; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
 .brand span { font-family: var(--display); font-size: 18px; font-weight: 700; letter-spacing: -0.01em; white-space: nowrap; }
+.hdr-left { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.backbtn { width: 40px; height: 40px; flex-shrink: 0; border: 1px solid var(--line); border-radius: 12px; background: transparent; color: var(--text); display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0; }
+#beacon .backbtn { border: 2px solid var(--ink); color: var(--ink); }
 .chips { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
 .chip { font-size: 12px; color: var(--muted); padding: 5px 9px; border: 1px solid var(--line); border-radius: 999px; white-space: nowrap; }
 .chip.warn { color: var(--accent); border-color: var(--accent); }
@@ -156,6 +159,8 @@ button { font: inherit; color: inherit; }
 <!-- 2. Compass -->
 <section id="s-compass" class="screen" aria-label="Compass">
   <div class="hdr">
+    <div class="hdr-left">
+    <button class="backbtn js-back" type="button" aria-label="Back to start"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg></button>
     <div class="brand debug-hold">
       <svg width="28" height="28" viewBox="0 0 200 200" aria-hidden="true">
         <defs><clipPath id="logo-hdr"><polygon points="100,30 122,100 78,100"></polygon></clipPath></defs>
@@ -165,6 +170,7 @@ button { font: inherit; color: inherit; }
         <polygon points="84,100 116,100 100,160" fill="#3A454D"></polygon>
       </svg>
       <span>Brew North</span>
+    </div>
     </div>
     <div class="chips"><span class="chip js-status"></span></div>
   </div>
@@ -213,7 +219,13 @@ button { font: inherit; color: inherit; }
   <div style="text-align:center;margin-top:-6px"><button class="linkbtn js-open-calib" type="button">Arrow seems off?</button></div>
 
   <div id="beacon" class="hidden">
-    <div class="hdr"><span>Brew North</span><span class="until js-until"></span></div>
+    <div class="hdr">
+      <div class="hdr-left">
+        <button class="backbtn js-back" type="button" aria-label="Back to start"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg></button>
+        <span>Brew North</span>
+      </div>
+      <span class="until js-until"></span>
+    </div>
     <div class="arrowzone">
       <button id="beaconBtn" class="arrowbtn" type="button" aria-label="Back to dial view">
         <svg viewBox="0 0 300 300" aria-hidden="true"><g id="beaconRot"><path d="M150 18 L250 262 L150 210 L50 262 Z" fill="#0F1417"></path></g></svg>
@@ -233,7 +245,10 @@ button { font: inherit; color: inherit; }
 <!-- 3. No happy hour -->
 <section id="s-none" class="screen" aria-label="No happy hour right now">
   <div class="hdr">
-    <div class="brand debug-hold"><span>Brew North</span></div>
+    <div class="hdr-left">
+      <button class="backbtn js-back" type="button" aria-label="Back to start"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg></button>
+      <div class="brand debug-hold"><span>Brew North</span></div>
+    </div>
     <div class="chips"><span class="chip js-time"></span></div>
   </div>
   <svg class="smalldial" viewBox="0 0 240 240" aria-hidden="true">
@@ -583,6 +598,8 @@ async function keepAwake() {
   try { if ('wakeLock' in navigator) wakeLock = await navigator.wakeLock.request('screen'); } catch (e) { /* not allowed */ }
 }
 document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible' && S.started) keepAwake(); });
+// A reload lands on the start screen, so drop any leftover history entry from a previous visit.
+if (history.state && history.state.bn) history.replaceState(null, '');
 
 function startGeo() {
   if (settings.fakeLoc) return;
@@ -594,20 +611,41 @@ function startGeo() {
   );
 }
 
+let sensorsOn = false;
 $('#startBtn').addEventListener('click', () => {
-  // iOS: the permission request must happen directly inside the tap.
-  if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
-    DeviceOrientationEvent.requestPermission()
-      .then(res => { if (res === 'granted') attachOrientation(); else { S.compassDenied = true; render(); } })
-      .catch(() => { S.compassDenied = true; render(); });
-  } else {
-    attachOrientation();
+  if (!sensorsOn) {
+    sensorsOn = true;
+    // iOS: the permission request must happen directly inside the tap.
+    if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+      DeviceOrientationEvent.requestPermission()
+        .then(res => { if (res === 'granted') attachOrientation(); else { S.compassDenied = true; render(); } })
+        .catch(() => { S.compassDenied = true; render(); });
+    } else {
+      attachOrientation();
+    }
+    startGeo();
   }
-  startGeo();
   keepAwake();
   S.started = true;
+  // A history entry so the phone's back gesture returns to the start screen.
+  if (!(history.state && history.state.bn)) history.pushState({ bn: 'go' }, '');
   render();
 });
+
+function goHome() {
+  S.started = false;
+  S.anyway = null;
+  S.view = 'dial';
+  S.skip = 0;
+  $('#calib').classList.remove('on');
+  if (wakeLock) { wakeLock.release().catch(() => {}); wakeLock = null; }
+  render();
+}
+$$('.js-back').forEach(btn => btn.addEventListener('click', () => {
+  if (history.state && history.state.bn) history.back(); // popstate runs goHome
+  else goHome();
+}));
+window.addEventListener('popstate', () => { if (S.started) goHome(); });
 
 // ---------- interactions ----------
 $('#dialBtn').addEventListener('click', () => { S.view = 'beacon'; render(); });
