@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <rect width="200" height="200" fill="#0F1417"/>
+  <defs><clipPath id="g"><polygon points="100,50 116,100 84,100"/></clipPath></defs>
+  <g transform="translate(100 100) scale(0.72) translate(-100 -100)">
+    <circle cx="100" cy="100" r="92" fill="none" stroke="#2A333A" stroke-width="4"/>
+    <path stroke="#7D8890" stroke-width="5" stroke-linecap="round" d="M120.7 22.7L122.8 15.0M140.0 30.7L144.0 23.8M156.6 43.4L162.2 37.8M169.3 60.0L176.2 56.0M177.3 79.3L185.0 77.2M180.0 100.0L188.0 100.0M177.3 120.7L185.0 122.8M169.3 140.0L176.2 144.0M156.6 156.6L162.2 162.2M140.0 169.3L144.0 176.2M120.7 177.3L122.8 185.0M100.0 180.0L100.0 188.0M79.3 177.3L77.2 185.0M60.0 169.3L56.0 176.2M43.4 156.6L37.8 162.2M30.7 140.0L23.8 144.0M22.7 120.7L15.0 122.8M20.0 100.0L12.0 100.0M22.7 79.3L15.0 77.2M30.7 60.0L23.8 56.0M43.4 43.4L37.8 37.8M60.0 30.7L56.0 23.8M79.3 22.7L77.2 15.0M172.0 100.0L188.0 100.0M100.0 172.0L100.0 188.0M28.0 100.0L12.0 100.0"/>
+    <text x="100" y="42" text-anchor="middle" font-family="Space Grotesk, Segoe UI, Arial, sans-serif" font-size="30" font-weight="700" fill="#F3EFE6">N</text>
+    <g clip-path="url(#g)">
+      <rect x="80" y="72" width="40" height="30" fill="#F5A524"/>
+      <rect x="80" y="66" width="40" height="9" fill="#F3EFE6"/>
+    </g>
+    <polygon points="100,50 116,100 84,100" fill="none" stroke="#F3EFE6" stroke-width="5" stroke-linejoin="round"/>
+    <polygon points="88,100 112,100 100,140" fill="#3A454D"/>
+    <circle cx="100" cy="100" r="7" fill="#0F1417" stroke="#F3EFE6" stroke-width="3"/>
+  </g>
+</svg>

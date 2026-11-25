@@ -1,0 +1,1452 @@
+{
+  "schemaVersion": 1,
+  "city": "Reykjavik",
+  "timezone": "Atlantic/Reykjavik (UTC+0 all year, no DST)",
+  "compiled": "2026-11-25",
+  "notes": [
+    "Times are local 24h 'HH:MM'. An end of '24:00' means midnight.",
+    "days uses mon..sun. A bar can have several happyHours windows (e.g. a late happy hour).",
+    "lat/lon and googleName/googleAddress/googleStatus come from Google Maps place pages, looked up 2026-11-25. googleStatus is open, temporarily_closed or permanently_closed.",
+    "Guide to Iceland prices were converted from USD on that page, so treat them as approximate (priceApprox: true).",
+    "verified: false means nobody has checked this against the bar itself yet.",
+    "Where sources disagree, the newer Guide to Iceland value is used and the other is kept in 'conflicts'."
+  ],
+  "sources": {
+    "gti": {
+      "name": "Guide to Iceland",
+      "url": "https://guidetoiceland.is/reykjavik-guide/happy-hour-the-cheapest-beer-in-reykjavik",
+      "pageUpdated": "2026-11-04",
+      "retrieved": "2026-11-25"
+    },
+    "vg": {
+      "name": "Visitors Guide",
+      "url": "https://visitorsguide.is/list-of-happy-hours",
+      "pageUpdated": null,
+      "retrieved": "2026-11-25"
+    }
+  },
+  "bars": [
+    {
+      "id": "bastard-brew-food",
+      "name": "Bastard Brew & Food",
+      "address": "Vegamótastígur 4, 101 Reykjavík",
+      "area": "Downtown",
+      "lat": 64.1457077,
+      "lon": -21.9307327,
+      "happyHours": [
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri",
+            "sat",
+            "sun"
+          ],
+          "start": "15:00",
+          "end": "18:00"
+        }
+      ],
+      "beerIsk": 1150,
+      "wineIsk": 1150,
+      "priceApprox": true,
+      "deals": [
+        "~510 ISK off draft cocktails during happy hour",
+        "Thursdays: ~510 ISK off all cocktails",
+        "Wine 1,150-1,530 ISK"
+      ],
+      "sources": [
+        "gti",
+        "vg"
+      ],
+      "conflicts": [],
+      "verified": false,
+      "googleName": "Bastard Brew & Food",
+      "googleAddress": "Vegamótastígur 4, 101 Reykjavík",
+      "googleStatus": "open"
+    },
+    {
+      "id": "the-english-pub",
+      "name": "The English Pub",
+      "address": "Austurstræti 12, 101 Reykjavík",
+      "area": "Downtown",
+      "lat": 64.1476705,
+      "lon": -21.9394499,
+      "happyHours": [
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri",
+            "sat",
+            "sun"
+          ],
+          "start": "16:00",
+          "end": "19:00"
+        }
+      ],
+      "beerIsk": 770,
+      "wineIsk": 1150,
+      "priceApprox": true,
+      "deals": [],
+      "sources": [
+        "gti",
+        "vg"
+      ],
+      "conflicts": [
+        "vg prices: beer 750, wine 850"
+      ],
+      "verified": false,
+      "googleName": "The English Pub",
+      "googleAddress": "Austurstræti 12, 101 Reykjavík",
+      "googleStatus": "open"
+    },
+    {
+      "id": "lebowski-bar",
+      "name": "Lebowski Bar",
+      "address": "Laugavegur 20a, 101 Reykjavík",
+      "area": "Downtown",
+      "lat": 64.1456833,
+      "lon": -21.9296444,
+      "happyHours": [
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri",
+            "sat",
+            "sun"
+          ],
+          "start": "16:00",
+          "end": "19:00"
+        }
+      ],
+      "beerIsk": 900,
+      "wineIsk": 900,
+      "priceApprox": true,
+      "deals": [],
+      "sources": [
+        "gti",
+        "vg"
+      ],
+      "conflicts": [],
+      "verified": false,
+      "googleName": "Lebowski Bar",
+      "googleAddress": "Laugavegur 20a, 101 Reykjavík",
+      "googleStatus": "open"
+    },
+    {
+      "id": "the-irishman-pub",
+      "name": "The Irishman Pub",
+      "address": "Klapparstígur 27, 101 Reykjavík",
+      "area": "Downtown",
+      "lat": 64.146126,
+      "lon": -21.928798,
+      "happyHours": [
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri",
+            "sat",
+            "sun"
+          ],
+          "start": "12:00",
+          "end": "19:00"
+        }
+      ],
+      "beerIsk": 900,
+      "wineIsk": 900,
+      "priceApprox": true,
+      "deals": [],
+      "sources": [
+        "gti",
+        "vg"
+      ],
+      "conflicts": [
+        "vg prices: beer 850, wine 850"
+      ],
+      "verified": false,
+      "googleName": "The Irishman Pub",
+      "googleAddress": "Klapparstígur 27, 101 Reykjavík",
+      "googleStatus": "open"
+    },
+    {
+      "id": "saeta-svinid",
+      "name": "Sæta Svínið",
+      "address": "Hafnarstræti 1-3, 101 Reykjavík",
+      "area": "Downtown",
+      "lat": 64.1484881,
+      "lon": -21.9412303,
+      "happyHours": [
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri",
+            "sat",
+            "sun"
+          ],
+          "start": "15:00",
+          "end": "18:00"
+        }
+      ],
+      "beerIsk": 1020,
+      "wineIsk": 1150,
+      "priceApprox": true,
+      "deals": [],
+      "sources": [
+        "gti",
+        "vg"
+      ],
+      "conflicts": [],
+      "verified": false,
+      "googleName": "Sæta Svínið Gastropub",
+      "googleAddress": "Hafnarstræti 1-3, 101 Reykjavík",
+      "googleStatus": "open"
+    },
+    {
+      "id": "den-danske-kro",
+      "name": "Den Danske Kro",
+      "address": "Ingólfsstræti 3, 101 Reykjavík",
+      "area": "Downtown",
+      "lat": 64.1463589,
+      "lon": -21.9337153,
+      "happyHours": [
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri",
+            "sat",
+            "sun"
+          ],
+          "start": "16:00",
+          "end": "19:00"
+        }
+      ],
+      "beerIsk": null,
+      "wineIsk": null,
+      "priceApprox": false,
+      "deals": [
+        "Buy one get one free on wine and draft beer",
+        "Thursday specials (amount not stated)"
+      ],
+      "sources": [
+        "gti",
+        "vg"
+      ],
+      "conflicts": [],
+      "verified": false,
+      "googleName": "Den Danske Kro (Danska Kráin)",
+      "googleAddress": "Ingólfsstræti 3, 101 Reykjavík",
+      "googleStatus": "open"
+    },
+    {
+      "id": "kaldi-bar",
+      "name": "Kaldi Bar",
+      "address": "Laugavegur 20a, 101 Reykjavík",
+      "area": "Downtown",
+      "lat": 64.145653,
+      "lon": -21.9294812,
+      "happyHours": [
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri",
+            "sat",
+            "sun"
+          ],
+          "start": "16:00",
+          "end": "19:00"
+        }
+      ],
+      "beerIsk": 900,
+      "wineIsk": 900,
+      "priceApprox": true,
+      "deals": [],
+      "sources": [
+        "gti",
+        "vg"
+      ],
+      "conflicts": [
+        "Shares Laugavegur 20a with Lebowski Bar (confirmed on Google Maps: neighbouring venues)"
+      ],
+      "verified": false,
+      "googleName": "Kaldi Bar/Café",
+      "googleAddress": "Laugavegur 20a, 101 Reykjavík",
+      "googleStatus": "open"
+    },
+    {
+      "id": "prikid",
+      "name": "Prikið",
+      "address": "Bankastræti 12, 101 Reykjavík",
+      "area": "Downtown",
+      "lat": 64.1465459,
+      "lon": -21.9336412,
+      "happyHours": [
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri",
+            "sat",
+            "sun"
+          ],
+          "start": "16:00",
+          "end": "19:00"
+        }
+      ],
+      "beerIsk": null,
+      "wineIsk": null,
+      "priceApprox": false,
+      "deals": [],
+      "sources": [
+        "gti",
+        "vg"
+      ],
+      "conflicts": [
+        "vg: 16:00-20:00"
+      ],
+      "verified": false,
+      "googleName": "Prikið",
+      "googleAddress": "Bankastræti 12, 101 Reykjavík",
+      "googleStatus": "open"
+    },
+    {
+      "id": "kokteilbarinn",
+      "name": "Kokteilbarinn",
+      "address": "Klapparstígur 28, 101 Reykjavík",
+      "area": "Downtown",
+      "lat": 64.1460395,
+      "lon": -21.9292933,
+      "happyHours": [
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri",
+            "sat",
+            "sun"
+          ],
+          "start": "14:00",
+          "end": "18:00"
+        }
+      ],
+      "beerIsk": null,
+      "wineIsk": null,
+      "priceApprox": false,
+      "deals": [
+        "25% off cocktails and cocktail-bar menu items"
+      ],
+      "sources": [
+        "gti",
+        "vg"
+      ],
+      "conflicts": [
+        "vg: 15:00-18:00"
+      ],
+      "verified": false,
+      "googleName": "Kokteilbarinn",
+      "googleAddress": "Klapparstígur 28, 101 Reykjavík",
+      "googleStatus": "open"
+    },
+    {
+      "id": "sky-bar",
+      "name": "SKÝ Bar & Lounge",
+      "address": "Ingólfsstræti 1, 101 Reykjavík",
+      "area": "Downtown",
+      "lat": 64.149089,
+      "lon": -21.9308789,
+      "happyHours": [
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri",
+            "sat",
+            "sun"
+          ],
+          "start": "18:00",
+          "end": "20:00"
+        },
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri",
+            "sat",
+            "sun"
+          ],
+          "start": "20:00",
+          "end": "23:00",
+          "note": "late happy hour"
+        }
+      ],
+      "beerIsk": 900,
+      "wineIsk": 1150,
+      "priceApprox": true,
+      "deals": [
+        "Cocktails ~1,680 ISK",
+        "Wine price also covers prosecco"
+      ],
+      "sources": [
+        "gti",
+        "vg"
+      ],
+      "conflicts": [
+        "vg: 16:00-18:00, beer 950, wine 1,100"
+      ],
+      "verified": false,
+      "googleName": "SKY Bar",
+      "googleAddress": "Ingólfsstræti 1, 101 Reykjavík",
+      "googleStatus": "open"
+    },
+    {
+      "id": "kiki-queer-bar",
+      "name": "Kiki Queer Bar",
+      "address": "Laugavegur 22, 101 Reykjavík",
+      "area": "Downtown",
+      "lat": 64.1455858,
+      "lon": -21.929175,
+      "happyHours": [
+        {
+          "days": [
+            "thu",
+            "fri",
+            "sat"
+          ],
+          "start": "21:00",
+          "end": "24:00"
+        }
+      ],
+      "beerIsk": 900,
+      "wineIsk": null,
+      "priceApprox": true,
+      "deals": [],
+      "sources": [
+        "gti"
+      ],
+      "conflicts": [],
+      "verified": false,
+      "googleName": "Kíkí Queer Bar",
+      "googleAddress": "Laugavegur 22, 101 Reykjavík",
+      "googleStatus": "open"
+    },
+    {
+      "id": "skuli-craft-bar",
+      "name": "Skúli Craft Bar",
+      "address": "Aðalstræti 9, 101 Reykjavík",
+      "area": "Downtown",
+      "lat": 64.147554,
+      "lon": -21.9416145,
+      "happyHours": [
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri",
+            "sat",
+            "sun"
+          ],
+          "start": "14:00",
+          "end": "19:00"
+        }
+      ],
+      "beerIsk": 900,
+      "wineIsk": 900,
+      "priceApprox": true,
+      "deals": [
+        "Price applies to select beer and wine"
+      ],
+      "sources": [
+        "gti"
+      ],
+      "conflicts": [],
+      "verified": false,
+      "googleName": "Skúli Craft bar",
+      "googleAddress": "Aðalstræti 9, 101 Reykjavík",
+      "googleStatus": "open"
+    },
+    {
+      "id": "litli-barinn",
+      "name": "Litli Barinn",
+      "address": "Ránargata 4a, 101 Reykjavík",
+      "area": "Downtown",
+      "lat": 64.1493749,
+      "lon": -21.9445451,
+      "happyHours": [
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri",
+            "sat",
+            "sun"
+          ],
+          "start": "15:00",
+          "end": "18:00"
+        }
+      ],
+      "beerIsk": 900,
+      "wineIsk": 1150,
+      "priceApprox": true,
+      "deals": [],
+      "sources": [
+        "gti"
+      ],
+      "conflicts": [],
+      "verified": false,
+      "googleName": "Litli Barinn",
+      "googleAddress": "Ránargata 4a, 101 Reykjavík",
+      "googleStatus": "open"
+    },
+    {
+      "id": "22-bar",
+      "name": "22 Bar",
+      "address": "Laugavegur 22, 101 Reykjavík",
+      "area": "Downtown",
+      "lat": 64.1456197,
+      "lon": -21.9292085,
+      "happyHours": [
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri",
+            "sat",
+            "sun"
+          ],
+          "start": "12:00",
+          "end": "20:00",
+          "note": "beer and wine"
+        },
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri",
+            "sat",
+            "sun"
+          ],
+          "start": "17:00",
+          "end": "21:00",
+          "note": "cocktails"
+        }
+      ],
+      "beerIsk": null,
+      "wineIsk": null,
+      "priceApprox": false,
+      "deals": [
+        "Discounts stated, amounts not given"
+      ],
+      "sources": [
+        "gti"
+      ],
+      "conflicts": [],
+      "verified": false,
+      "googleName": "22 Bar",
+      "googleAddress": "Laugavegur 22, 101 Reykjavík",
+      "googleStatus": "open"
+    },
+    {
+      "id": "elly-bar",
+      "name": "Elly Bar",
+      "address": "Laugavegur 12, 101 Reykjavík",
+      "area": "Downtown",
+      "lat": 64.1460231,
+      "lon": -21.9310574,
+      "happyHours": [
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri",
+            "sat",
+            "sun"
+          ],
+          "start": "16:00",
+          "end": "18:00"
+        }
+      ],
+      "beerIsk": null,
+      "wineIsk": null,
+      "priceApprox": false,
+      "deals": [
+        "Discounts on selected cocktails and beer"
+      ],
+      "sources": [
+        "gti"
+      ],
+      "conflicts": [],
+      "verified": false,
+      "googleName": "ELLÝ",
+      "googleAddress": "Laugavegur 12, 101 Reykjavík",
+      "googleStatus": "open"
+    },
+    {
+      "id": "matarkjallarinn",
+      "name": "Matarkjallarinn",
+      "address": "Aðalstræti 2, 101 Reykjavík",
+      "area": "Downtown",
+      "lat": 64.1486193,
+      "lon": -21.9418488,
+      "happyHours": [
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri",
+            "sat",
+            "sun"
+          ],
+          "start": "16:00",
+          "end": "18:00"
+        }
+      ],
+      "beerIsk": null,
+      "wineIsk": null,
+      "priceApprox": false,
+      "deals": [],
+      "sources": [
+        "gti"
+      ],
+      "conflicts": [],
+      "verified": false,
+      "googleName": "Matarkjallarinn",
+      "googleAddress": "Aðalstræti 2, 101 Reykjavík",
+      "googleStatus": "open"
+    },
+    {
+      "id": "olstofan",
+      "name": "Ölstofan",
+      "address": "Vegamótastígur, 101 Reykjavík",
+      "area": "Downtown",
+      "lat": 64.1455536,
+      "lon": -21.9310399,
+      "happyHours": [
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri",
+            "sat",
+            "sun"
+          ],
+          "start": "15:00",
+          "end": "20:00"
+        }
+      ],
+      "beerIsk": null,
+      "wineIsk": null,
+      "priceApprox": false,
+      "deals": [],
+      "sources": [
+        "vg"
+      ],
+      "conflicts": [],
+      "verified": false,
+      "googleName": "Ölstofa",
+      "googleAddress": "Vegamótastígur, 101 Reykjavík",
+      "googleStatus": "open"
+    },
+    {
+      "id": "kaffibarinn",
+      "name": "Kaffibarinn",
+      "address": "Bergstaðastræti 1, 101 Reykjavík",
+      "area": "Downtown",
+      "lat": 64.145878,
+      "lon": -21.931145,
+      "happyHours": [
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri",
+            "sat",
+            "sun"
+          ],
+          "start": "17:00",
+          "end": "19:00"
+        }
+      ],
+      "beerIsk": null,
+      "wineIsk": null,
+      "priceApprox": false,
+      "deals": [],
+      "sources": [
+        "vg"
+      ],
+      "conflicts": [],
+      "verified": false,
+      "googleName": "Kaffibarinn Bar",
+      "googleAddress": "Bergstaðastræti 1, 101 Reykjavík",
+      "googleStatus": "open"
+    },
+    {
+      "id": "kex-hostel",
+      "name": "Kex Hostel",
+      "address": "Skúlagata 28, 101 Reykjavík",
+      "area": "Downtown",
+      "lat": 64.145424,
+      "lon": -21.919484,
+      "happyHours": [
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri",
+            "sat",
+            "sun"
+          ],
+          "start": "15:00",
+          "end": "19:00"
+        }
+      ],
+      "beerIsk": null,
+      "wineIsk": null,
+      "priceApprox": false,
+      "deals": [],
+      "sources": [
+        "vg"
+      ],
+      "conflicts": [
+        "Google lists the separate 'Kex Hostel Restaurant' as temporarily closed; the hostel and its gastropub show as open"
+      ],
+      "verified": false,
+      "googleName": "KEX Hostel and Hotel Reykjavik",
+      "googleAddress": "Skúlagata 28, 101 Reykjavík",
+      "googleStatus": "open"
+    },
+    {
+      "id": "the-drunk-rabbit",
+      "name": "The Drunk Rabbit Irish Pub",
+      "address": "Austurstræti 3, 101 Reykjavík",
+      "area": "Downtown",
+      "lat": 64.1479979,
+      "lon": -21.9403533,
+      "happyHours": [
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri",
+            "sat",
+            "sun"
+          ],
+          "start": "16:00",
+          "end": "19:00"
+        }
+      ],
+      "beerIsk": null,
+      "wineIsk": null,
+      "priceApprox": false,
+      "deals": [],
+      "sources": [
+        "vg"
+      ],
+      "conflicts": [],
+      "verified": false,
+      "googleName": "The Drunk Rabbit Irish Pub",
+      "googleAddress": "Austurstræti 3, 101 Reykjavík",
+      "googleStatus": "open"
+    },
+    {
+      "id": "the-icelandic-bar",
+      "name": "The Icelandic Bar",
+      "address": "Ingólfsstræti 1a, 101 Reykjavík",
+      "area": "Downtown",
+      "lat": 64.1469718,
+      "lon": -21.933154,
+      "happyHours": [
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri",
+            "sat",
+            "sun"
+          ],
+          "start": "16:00",
+          "end": "18:00"
+        }
+      ],
+      "beerIsk": null,
+      "wineIsk": null,
+      "priceApprox": false,
+      "deals": [],
+      "sources": [
+        "vg"
+      ],
+      "conflicts": [],
+      "verified": false,
+      "googleName": "Íslenski Barinn - The Icelandic Bar",
+      "googleAddress": "Ingólfsstræti 1a, 101 Reykjavík",
+      "googleStatus": "open"
+    },
+    {
+      "id": "american-bar",
+      "name": "American Bar",
+      "address": "Austurstræti 8, 101 Reykjavík",
+      "area": "Downtown",
+      "lat": 64.1477377,
+      "lon": -21.9400835,
+      "happyHours": [
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri",
+            "sat",
+            "sun"
+          ],
+          "start": "16:00",
+          "end": "19:00"
+        }
+      ],
+      "beerIsk": 1000,
+      "wineIsk": 1200,
+      "priceApprox": false,
+      "deals": [],
+      "sources": [
+        "vg"
+      ],
+      "conflicts": [],
+      "verified": false,
+      "googleName": "American Bar",
+      "googleAddress": "Austurstræti 8, 101 Reykjavík",
+      "googleStatus": "open"
+    },
+    {
+      "id": "petersen-svitan",
+      "name": "Petersen svítan",
+      "address": "Ingólfsstræti 2a (3rd floor), 101 Reykjavík",
+      "area": "Downtown",
+      "lat": 64.146957,
+      "lon": -21.9335791,
+      "happyHours": [
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri",
+            "sat",
+            "sun"
+          ],
+          "start": "16:00",
+          "end": "19:00"
+        }
+      ],
+      "beerIsk": 850,
+      "wineIsk": 1100,
+      "priceApprox": false,
+      "deals": [],
+      "sources": [
+        "vg"
+      ],
+      "conflicts": [],
+      "verified": false,
+      "googleName": "Petersen svítan",
+      "googleAddress": "Ingólfsstræti 2a (3rd floor), 101 Reykjavík",
+      "googleStatus": "open"
+    },
+    {
+      "id": "isafold-lounge",
+      "name": "Ísafold Lounge & Bar",
+      "address": "Þingholtsstræti 5, 101 Reykjavík",
+      "area": "Downtown",
+      "lat": 64.1464296,
+      "lon": -21.9345878,
+      "happyHours": [
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri",
+            "sat",
+            "sun"
+          ],
+          "start": "16:00",
+          "end": "18:00"
+        }
+      ],
+      "beerIsk": 990,
+      "wineIsk": 1190,
+      "priceApprox": false,
+      "deals": [],
+      "sources": [
+        "vg"
+      ],
+      "conflicts": [
+        "Google returned 'Þingholt Lounge & Bar' for this search; may be a rename of Ísafold Lounge, check"
+      ],
+      "verified": false,
+      "googleName": "Þingholt Lounge & Bar",
+      "googleAddress": "Þingholtsstræti 5, 101 Reykjavík",
+      "googleStatus": "open"
+    },
+    {
+      "id": "fjallkonan",
+      "name": "Fjallkonan",
+      "address": "Hafnarstræti 1-3, 101 Reykjavík",
+      "area": "Downtown",
+      "lat": 64.1483886,
+      "lon": -21.9407451,
+      "happyHours": [
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri",
+            "sat",
+            "sun"
+          ],
+          "start": "15:00",
+          "end": "17:00"
+        }
+      ],
+      "beerIsk": 990,
+      "wineIsk": 1190,
+      "priceApprox": false,
+      "deals": [],
+      "sources": [
+        "vg"
+      ],
+      "conflicts": [],
+      "verified": false,
+      "googleName": "Fjallkonan",
+      "googleAddress": "Hafnarstræti 1-3, 101 Reykjavík",
+      "googleStatus": "open"
+    },
+    {
+      "id": "froken-reykjavik",
+      "name": "Fröken Reykjavík",
+      "address": "Lækjargata 12, 101 Reykjavík",
+      "area": "Downtown",
+      "lat": 64.1459697,
+      "lon": -21.9387802,
+      "happyHours": [
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri",
+            "sat",
+            "sun"
+          ],
+          "start": "16:00",
+          "end": "18:00"
+        }
+      ],
+      "beerIsk": 990,
+      "wineIsk": 1200,
+      "priceApprox": false,
+      "deals": [],
+      "sources": [
+        "vg"
+      ],
+      "conflicts": [],
+      "verified": false,
+      "googleName": "Fröken Reykjavík Kitchen & Bar",
+      "googleAddress": "Lækjargata 12, 101 Reykjavík",
+      "googleStatus": "open"
+    },
+    {
+      "id": "sumac",
+      "name": "Sumac",
+      "address": "Laugavegur 28, 101 Reykjavík",
+      "area": "Downtown",
+      "lat": 64.1453878,
+      "lon": -21.9280274,
+      "happyHours": [
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri",
+            "sat",
+            "sun"
+          ],
+          "start": "16:00",
+          "end": "18:00"
+        }
+      ],
+      "beerIsk": 750,
+      "wineIsk": 950,
+      "priceApprox": false,
+      "deals": [],
+      "sources": [
+        "vg"
+      ],
+      "conflicts": [],
+      "verified": false,
+      "googleName": "Sümac Grill + Drinks",
+      "googleAddress": "Laugavegur 28, 101 Reykjavík",
+      "googleStatus": "open"
+    },
+    {
+      "id": "jorgensen-kitchen-bar",
+      "name": "Jörgensen Kitchen & Bar",
+      "address": "Laugavegur 120, 101 Reykjavík",
+      "area": "Close to Downtown",
+      "lat": 64.1427286,
+      "lon": -21.9133395,
+      "happyHours": [
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri",
+            "sat",
+            "sun"
+          ],
+          "start": "15:00",
+          "end": "18:00"
+        }
+      ],
+      "beerIsk": 1096,
+      "wineIsk": 1300,
+      "priceApprox": false,
+      "deals": [],
+      "sources": [
+        "vg"
+      ],
+      "conflicts": [],
+      "verified": false,
+      "googleName": "Jörgensen Kitchen & Bar",
+      "googleAddress": "Laugavegur 120, 101 Reykjavík",
+      "googleStatus": "open"
+    },
+    {
+      "id": "slippbarinn",
+      "name": "Slippbarinn",
+      "address": "Mýrargata 2, 101 Reykjavík",
+      "area": "Downtown",
+      "lat": 64.1509497,
+      "lon": -21.9458147,
+      "happyHours": [
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri",
+            "sat",
+            "sun"
+          ],
+          "start": "15:00",
+          "end": "18:00"
+        }
+      ],
+      "beerIsk": null,
+      "wineIsk": null,
+      "priceApprox": false,
+      "deals": [],
+      "sources": [
+        "vg"
+      ],
+      "conflicts": [],
+      "verified": false,
+      "googleName": "Slippbarinn",
+      "googleAddress": "Mýrargata 2, 101 Reykjavík",
+      "googleStatus": "open"
+    },
+    {
+      "id": "monkeys",
+      "name": "Monkeys",
+      "address": "Klapparstígur 28, 101 Reykjavík",
+      "area": "Downtown",
+      "lat": 64.1459312,
+      "lon": -21.9293985,
+      "happyHours": [
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri",
+            "sat",
+            "sun"
+          ],
+          "start": "14:00",
+          "end": "18:00"
+        }
+      ],
+      "beerIsk": null,
+      "wineIsk": null,
+      "priceApprox": false,
+      "deals": [],
+      "sources": [
+        "vg"
+      ],
+      "conflicts": [],
+      "verified": false,
+      "googleName": "Monkeys Reykjavik",
+      "googleAddress": "Klapparstígur 28, 101 Reykjavík",
+      "googleStatus": "open"
+    },
+    {
+      "id": "geiri-smart",
+      "name": "Geiri Smart",
+      "address": "Hverfisgata 30, 101 Reykjavík",
+      "area": "Downtown",
+      "lat": 64.146491,
+      "lon": -21.9299011,
+      "happyHours": [
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri",
+            "sat",
+            "sun"
+          ],
+          "start": "16:00",
+          "end": "18:00"
+        }
+      ],
+      "beerIsk": null,
+      "wineIsk": null,
+      "priceApprox": false,
+      "deals": [],
+      "sources": [
+        "vg"
+      ],
+      "conflicts": [],
+      "verified": false,
+      "googleName": "Geiri Smart",
+      "googleAddress": "Hverfisgata 30, 101 Reykjavík",
+      "googleStatus": "open"
+    },
+    {
+      "id": "forrettabarinn-nylendugata",
+      "name": "Forréttabarinn (Nýlendugata)",
+      "address": "Nýlendugata 14, 101 Reykjavík",
+      "area": "Downtown",
+      "lat": 64.1508294,
+      "lon": -21.9463367,
+      "happyHours": [
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri",
+            "sat",
+            "sun"
+          ],
+          "start": "16:00",
+          "end": "18:00"
+        }
+      ],
+      "beerIsk": null,
+      "wineIsk": null,
+      "priceApprox": false,
+      "deals": [],
+      "sources": [
+        "vg"
+      ],
+      "conflicts": [
+        "vg also lists a third 'Forréttabarinn' entry with no location; assumed a duplicate"
+      ],
+      "verified": false,
+      "googleName": "Forrettabarinn Restaurant & Bar",
+      "googleAddress": "Nýlendugata 14, 101 Reykjavík",
+      "googleStatus": "open"
+    },
+    {
+      "id": "forrettabarinn-frakkastigur",
+      "name": "Forréttabarinn (Frakkastígur)",
+      "address": "Frakkastígur 8a, 101 Reykjavík",
+      "area": "Downtown",
+      "lat": 64.1453746,
+      "lon": -21.9249528,
+      "happyHours": [
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri",
+            "sat",
+            "sun"
+          ],
+          "start": "16:00",
+          "end": "18:00"
+        }
+      ],
+      "beerIsk": null,
+      "wineIsk": null,
+      "priceApprox": false,
+      "deals": [],
+      "sources": [
+        "vg"
+      ],
+      "conflicts": [],
+      "verified": false,
+      "googleName": "Forréttabarinn",
+      "googleAddress": "Frakkastígur 8a, 101 Reykjavík",
+      "googleStatus": "open"
+    },
+    {
+      "id": "the-beer-garden",
+      "name": "The Beer Garden",
+      "address": "Þórunnartún 1, 105 Reykjavík",
+      "area": "Close to Downtown",
+      "lat": 64.1447736,
+      "lon": -21.9096713,
+      "happyHours": [
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri",
+            "sat",
+            "sun"
+          ],
+          "start": "15:00",
+          "end": "18:00"
+        }
+      ],
+      "beerIsk": null,
+      "wineIsk": null,
+      "priceApprox": false,
+      "deals": [],
+      "sources": [
+        "vg"
+      ],
+      "conflicts": [],
+      "verified": false,
+      "googleName": "Bjórgarðurinn",
+      "googleAddress": "Þórunnartún 1, 105 Reykjavík",
+      "googleStatus": "open"
+    },
+    {
+      "id": "old-harbour-house",
+      "name": "Old Harbour House",
+      "address": "Ægisgarður 2, 101 Reykjavík",
+      "area": "Downtown",
+      "lat": 64.1511709,
+      "lon": -21.944382,
+      "happyHours": [
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri",
+            "sat",
+            "sun"
+          ],
+          "start": "17:00",
+          "end": "19:00"
+        }
+      ],
+      "beerIsk": null,
+      "wineIsk": null,
+      "priceApprox": false,
+      "deals": [],
+      "sources": [
+        "vg"
+      ],
+      "conflicts": [],
+      "verified": false,
+      "googleName": "Old Harbour House",
+      "googleAddress": "Ægisgarður 2, 101 Reykjavík",
+      "googleStatus": "open"
+    },
+    {
+      "id": "lola",
+      "name": "Lóla",
+      "address": "Tryggvagata 11, 101 Reykjavík",
+      "area": "Downtown",
+      "lat": 64.1499523,
+      "lon": -21.9426442,
+      "happyHours": [
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri",
+            "sat",
+            "sun"
+          ],
+          "start": "17:30",
+          "end": "18:30"
+        }
+      ],
+      "beerIsk": null,
+      "wineIsk": null,
+      "priceApprox": false,
+      "deals": [],
+      "sources": [
+        "vg"
+      ],
+      "conflicts": [],
+      "verified": false,
+      "googleName": "Lóla Restaurant",
+      "googleAddress": "Tryggvagata 11, 101 Reykjavík",
+      "googleStatus": "open"
+    },
+    {
+      "id": "sushi-social",
+      "name": "Sushi Social",
+      "address": "Þingholtsstræti 5, 101 Reykjavík",
+      "area": "Downtown",
+      "lat": 64.146296,
+      "lon": -21.9347052,
+      "happyHours": [
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri",
+            "sat",
+            "sun"
+          ],
+          "start": "17:00",
+          "end": "18:00"
+        }
+      ],
+      "beerIsk": null,
+      "wineIsk": null,
+      "priceApprox": false,
+      "deals": [],
+      "sources": [
+        "vg"
+      ],
+      "conflicts": [],
+      "verified": false,
+      "googleName": "Sushi Social",
+      "googleAddress": "Þingholtsstræti 5, 101 Reykjavík",
+      "googleStatus": "open"
+    },
+    {
+      "id": "indo-italian",
+      "name": "Indo-Italian Restaurant",
+      "address": "Engjateigur 19, 105 Reykjavík",
+      "area": "Close to Downtown",
+      "lat": 64.1408721,
+      "lon": -21.8862045,
+      "happyHours": [
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri"
+          ],
+          "start": "14:00",
+          "end": "17:00"
+        }
+      ],
+      "beerIsk": 1090,
+      "wineIsk": 1081,
+      "priceApprox": false,
+      "deals": [],
+      "sources": [
+        "vg"
+      ],
+      "conflicts": [],
+      "verified": false,
+      "googleName": "Indo-Italian Restaurant Reykjavik",
+      "googleAddress": "Engjateigur 19, 105 Reykjavík",
+      "googleStatus": "open"
+    }
+  ],
+  "app": "Brew North",
+  "removed": [
+    {
+      "id": "hverfisbarinn",
+      "reason": "permanently closed on Google Maps (2026-11-25)"
+    },
+    {
+      "id": "public-house",
+      "reason": "temporarily closed on Google Maps (2026-11-25)"
+    },
+    {
+      "id": "hressingarskalinn",
+      "reason": "temporarily closed on Google Maps (2026-11-25)"
+    },
+    {
+      "id": "blik-bistro-grill",
+      "reason": "Mosfellsbaer, ~10 km from the centre"
+    },
+    {
+      "id": "a-hansen",
+      "reason": "Hafnarfjordur, ~9 km from the centre"
+    }
+  ]
+}

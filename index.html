@@ -1,0 +1,694 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Brew North</title>
+<meta name="description" content="The nearest happy hour in Reykjavík, as a compass.">
+<meta name="theme-color" content="#0F1417">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Brew North">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap">
+<style>
+:root {
+  --ink: #0F1417;
+  --surface: #151C20;
+  --line: #2A333A;
+  --dim: #3A454D;
+  --tick: #7D8890;
+  --text: #F3EFE6;
+  --muted: #A3ADB3;
+  --accent: #F5A524;
+  --accent-ink: #3B2A0B;
+  --display: 'Space Grotesk', Inter, system-ui, sans-serif;
+  --body: Inter, system-ui, -apple-system, sans-serif;
+  --dial: min(300px, 78vw, 40dvh);
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: var(--ink); color: var(--text); font-family: var(--body); -webkit-tap-highlight-color: transparent; }
+body { overscroll-behavior: none; }
+button { font: inherit; color: inherit; }
+#app { height: 100dvh; max-width: 480px; margin: 0 auto; position: relative; overflow: hidden; }
+.screen { position: absolute; inset: 0; display: none; flex-direction: column; padding: calc(16px + env(safe-area-inset-top)) 20px calc(20px + env(safe-area-inset-bottom)); gap: 14px; }
+.screen.on { display: flex; }
+.hidden { display: none !important; }
+
+/* header */
+.hdr { display: flex; align-items: center; justify-content: space-between; min-height: 44px; gap: 8px; }
+.brand { display: flex; align-items: center; gap: 10px; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
+.brand span { font-family: var(--display); font-size: 18px; font-weight: 700; letter-spacing: -0.01em; white-space: nowrap; }
+.chips { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+.chip { font-size: 12px; color: var(--muted); padding: 5px 9px; border: 1px solid var(--line); border-radius: 999px; white-space: nowrap; }
+.chip.warn { color: var(--accent); border-color: var(--accent); }
+
+/* buttons */
+.btn { height: 54px; border: 0; border-radius: 16px; background: var(--accent); color: var(--ink); font-size: 17px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; text-decoration: none; padding: 0 18px; }
+.btn.ghost { background: transparent; color: var(--text); border: 1px solid var(--line); font-weight: 500; }
+.row { display: flex; gap: 12px; }
+.row .grow { flex-grow: 1; }
+.linkbtn { background: none; border: 0; color: var(--muted); font-size: 13px; text-decoration: underline; cursor: pointer; padding: 6px; }
+
+/* start */
+#s-start .hero { flex-grow: 1; display: flex; flex-direction: column; justify-content: center; gap: 28px; padding: 0 8px; }
+#s-start h1 { margin: 0; font-family: var(--display); font-size: 48px; line-height: 1; font-weight: 700; letter-spacing: -0.02em; }
+#s-start p { margin: 0; font-size: 19px; line-height: 1.45; color: var(--muted); max-width: 300px; }
+.fine { font-size: 13px; line-height: 1.5; color: var(--muted); text-align: center; margin: 0; }
+
+/* dial view */
+.dialwrap { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.dialbtn { width: var(--dial); height: var(--dial); padding: 0; border: 0; border-radius: 50%; background: transparent; cursor: pointer; }
+.dialbtn svg { width: 100%; height: 100%; display: block; }
+.dist { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.dist .big { font-family: var(--display); font-size: 60px; line-height: 1; font-weight: 700; letter-spacing: -0.03em; }
+.dist .big small { font-size: 26px; font-weight: 500; color: var(--muted); margin-left: 4px; }
+.dist .sub { font-size: 15px; color: var(--muted); }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 16px 18px; display: flex; flex-direction: column; gap: 10px; color: var(--text); text-decoration: none; }
+.card .top { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+.card .name { font-size: 20px; font-weight: 600; line-height: 1.2; }
+.card .addr { font-size: 14px; color: var(--muted); margin-top: 3px; }
+.card .count { font-size: 12px; color: var(--muted); padding-top: 4px; white-space: nowrap; }
+.pillrow { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.pill { font-size: 13px; font-weight: 600; color: var(--ink); background: var(--accent); border-radius: 999px; padding: 5px 10px; }
+.pill.grey { background: var(--dim); color: var(--text); }
+.pillrow .left { font-size: 13px; color: var(--muted); }
+.card .bottom { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.card .prices { font-size: 15px; }
+.card .maps { font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 4px; white-space: nowrap; }
+.spacer { flex-grow: 1; }
+.hint { font-size: 12px; color: var(--muted); }
+
+/* beacon view */
+#beacon { position: absolute; inset: 0; background: var(--accent); color: var(--ink); display: flex; flex-direction: column; padding: calc(16px + env(safe-area-inset-top)) 24px calc(20px + env(safe-area-inset-bottom)); }
+#beacon .hdr span { font-family: var(--display); font-size: 18px; font-weight: 700; }
+#beacon .until { font-size: 14px; font-weight: 500; color: var(--accent-ink); }
+#beacon .arrowzone { flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; min-height: 0; }
+#beacon .arrowbtn { width: min(300px, 74vw, 38dvh); height: min(300px, 74vw, 38dvh); border: 0; padding: 0; background: transparent; cursor: pointer; }
+#beacon .arrowbtn svg { width: 100%; height: 100%; display: block; }
+#beacon .bigd { font-family: var(--display); font-size: min(112px, 26vw); line-height: 0.9; font-weight: 700; letter-spacing: -0.05em; }
+#beacon .bigd small { font-size: 0.36em; letter-spacing: -0.02em; margin-left: 6px; }
+#beacon .bname { font-size: 26px; font-weight: 600; line-height: 1.2; margin-top: 6px; }
+#beacon .bsub { font-size: 16px; color: var(--accent-ink); margin-top: 4px; }
+#beacon .hint { color: var(--accent-ink); }
+#beacon .btn { background: var(--ink); color: var(--text); }
+#beacon .btn.ghost { background: transparent; color: var(--ink); border: 2px solid var(--ink); font-weight: 600; }
+
+/* none + error */
+.center { display: flex; flex-direction: column; gap: 10px; text-align: center; align-items: center; }
+.center h2 { margin: 0; font-family: var(--display); font-size: 30px; line-height: 1.15; font-weight: 700; letter-spacing: -0.02em; }
+.center p { margin: 0; font-size: 16px; line-height: 1.5; color: var(--muted); max-width: 320px; }
+.eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.smalldial { width: min(220px, 56vw, 30dvh); height: min(220px, 56vw, 30dvh); align-self: center; }
+
+/* calibrate overlay */
+#calib { position: absolute; inset: 0; background: var(--ink); z-index: 20; display: none; flex-direction: column; gap: 24px; padding: calc(24px + env(safe-area-inset-top)) 24px calc(24px + env(safe-area-inset-bottom)); }
+#calib.on { display: flex; }
+.accbar { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+.accbar div { height: 8px; border-radius: 4px; background: var(--line); }
+.accbar div.lit { background: var(--accent); }
+
+/* debug */
+#debug { position: absolute; left: 0; right: 0; bottom: 0; z-index: 30; max-height: 62dvh; overflow: auto; background: #0A0E10; border-top: 1px solid var(--line); padding: 12px 16px calc(16px + env(safe-area-inset-bottom)); font-size: 13px; display: none; }
+#debug.on { display: block; }
+#debug pre { margin: 0 0 10px; font: 12px/1.45 ui-monospace, Menlo, Consolas, monospace; color: var(--text); white-space: pre-wrap; }
+#debug label { display: flex; align-items: center; gap: 8px; padding: 6px 0; color: var(--text); }
+#debug input[type=range] { flex-grow: 1; accent-color: var(--accent); }
+#debug input[type=checkbox] { width: 20px; height: 20px; accent-color: var(--accent); }
+#debug .dbgrow { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+#debug .dbgrow button { height: 40px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); padding: 0 12px; cursor: pointer; }
+</style>
+</head>
+<body>
+<div id="app">
+
+<!-- 1. Start -->
+<section id="s-start" class="screen on" aria-label="Start">
+  <div class="hero">
+    <svg class="debug-hold" width="148" height="148" viewBox="0 0 200 200" role="img" aria-label="Brew North logo">
+      <defs><clipPath id="logo-start"><polygon points="100,50 116,100 84,100"></polygon></clipPath></defs>
+      <circle cx="100" cy="100" r="92" fill="none" stroke="#2A333A" stroke-width="3"></circle>
+      <path class="ticks24" stroke="#7D8890" stroke-width="4" stroke-linecap="round"></path>
+      <text x="100" y="40" text-anchor="middle" font-family="Space Grotesk, Inter, sans-serif" font-size="26" font-weight="700" fill="#F3EFE6">N</text>
+      <g clip-path="url(#logo-start)">
+        <rect x="80" y="72" width="40" height="30" fill="#F5A524"></rect>
+        <rect x="80" y="66" width="40" height="9" fill="#F3EFE6"></rect>
+        <circle cx="100" cy="86" r="2" fill="#F3EFE6"></circle>
+      </g>
+      <polygon points="100,50 116,100 84,100" fill="none" stroke="#F3EFE6" stroke-width="4" stroke-linejoin="round"></polygon>
+      <polygon points="88,100 112,100 100,140" fill="#3A454D"></polygon>
+      <circle cx="100" cy="100" r="7" fill="#0F1417" stroke="#F3EFE6" stroke-width="3"></circle>
+    </svg>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <h1>Brew North</h1>
+      <p>The nearest happy hour, wherever you're standing in Reykjavík.</p>
+    </div>
+  </div>
+  <button id="startBtn" class="btn" type="button">Find happy hour</button>
+  <p class="fine">Uses your location and compass.<br>Nothing leaves your phone.</p>
+</section>
+
+<!-- 2. Compass -->
+<section id="s-compass" class="screen" aria-label="Compass">
+  <div class="hdr">
+    <div class="brand debug-hold">
+      <svg width="28" height="28" viewBox="0 0 200 200" aria-hidden="true">
+        <defs><clipPath id="logo-hdr"><polygon points="100,30 122,100 78,100"></polygon></clipPath></defs>
+        <circle cx="100" cy="100" r="90" fill="none" stroke="#3A454D" stroke-width="10"></circle>
+        <g clip-path="url(#logo-hdr)"><rect x="70" y="68" width="60" height="34" fill="#F5A524"></rect><rect x="70" y="58" width="60" height="12" fill="#F3EFE6"></rect></g>
+        <polygon points="100,30 122,100 78,100" fill="none" stroke="#F3EFE6" stroke-width="10" stroke-linejoin="round"></polygon>
+        <polygon points="84,100 116,100 100,160" fill="#3A454D"></polygon>
+      </svg>
+      <span>Brew North</span>
+    </div>
+    <div class="chips"><span class="chip js-status"></span></div>
+  </div>
+  <div class="chips js-compass-chip-row hidden" style="justify-content:center"><span class="chip warn js-compass-chip"></span></div>
+  <div class="dialwrap">
+    <button id="dialBtn" class="dialbtn" type="button" aria-label="Switch to big-arrow mode">
+      <svg viewBox="0 0 300 300" aria-hidden="true">
+        <circle cx="150" cy="150" r="148" fill="#151C20" stroke="#2A333A" stroke-width="1.5"></circle>
+        <g id="dialRot">
+          <path id="ticksMinor" stroke="#3A454D" stroke-width="2"></path>
+          <path id="ticksMajor" stroke="#7D8890" stroke-width="2"></path>
+          <text x="150" y="46" text-anchor="middle" font-family="Space Grotesk, Inter, sans-serif" font-size="17" font-weight="700" fill="#F3EFE6">N</text>
+          <text x="258" y="156" text-anchor="middle" font-family="Space Grotesk, Inter, sans-serif" font-size="14" font-weight="500" fill="#7D8890">E</text>
+          <text x="150" y="266" text-anchor="middle" font-family="Space Grotesk, Inter, sans-serif" font-size="14" font-weight="500" fill="#7D8890">S</text>
+          <text x="42" y="156" text-anchor="middle" font-family="Space Grotesk, Inter, sans-serif" font-size="14" font-weight="500" fill="#7D8890">W</text>
+        </g>
+        <g id="arrowRot">
+          <polygon points="150,62 172,150 128,150" fill="#F5A524"></polygon>
+          <polygon points="150,212 166,150 134,150" fill="#3A454D"></polygon>
+          <circle cx="150" cy="150" r="12" fill="#0F1417" stroke="#F3EFE6" stroke-width="3"></circle>
+        </g>
+      </svg>
+    </button>
+    <span class="hint">Tap the dial for big-arrow mode</span>
+  </div>
+  <div class="dist">
+    <div class="big"><span class="js-dist">–</span><small class="js-unit">m</small></div>
+    <div class="sub js-walk">Finding your location…</div>
+  </div>
+  <a class="card js-maps" href="#" target="_blank" rel="noopener">
+    <div class="top">
+      <div><div class="name js-name">…</div><div class="addr js-addr"></div></div>
+      <span class="count js-count"></span>
+    </div>
+    <div class="pillrow"><span class="pill js-pill"></span><span class="left js-left"></span></div>
+    <div class="bottom">
+      <span class="prices js-prices"></span>
+      <span class="maps">Maps<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"></path></svg></span>
+    </div>
+  </a>
+  <div class="spacer"></div>
+  <div class="row">
+    <button class="btn grow js-primary" type="button">Next nearest</button>
+    <a class="btn ghost js-maps" href="#" target="_blank" rel="noopener" style="width:104px">Maps</a>
+  </div>
+  <div style="text-align:center;margin-top:-6px"><button class="linkbtn js-open-calib" type="button">Arrow seems off?</button></div>
+
+  <div id="beacon" class="hidden">
+    <div class="hdr"><span>Brew North</span><span class="until js-until"></span></div>
+    <div class="arrowzone">
+      <button id="beaconBtn" class="arrowbtn" type="button" aria-label="Back to dial view">
+        <svg viewBox="0 0 300 300" aria-hidden="true"><g id="beaconRot"><path d="M150 18 L250 262 L150 210 L50 262 Z" fill="#0F1417"></path></g></svg>
+      </button>
+      <span class="hint">Tap the arrow to go back to the dial</span>
+    </div>
+    <div class="bigd"><span class="js-dist">–</span><small class="js-unit">m</small></div>
+    <div class="bname js-name"></div>
+    <div class="bsub js-bsub"></div>
+    <div class="row" style="margin-top:22px">
+      <button class="btn grow js-primary" type="button">Next nearest</button>
+      <a class="btn ghost js-maps" href="#" target="_blank" rel="noopener" style="width:104px">Maps</a>
+    </div>
+  </div>
+</section>
+
+<!-- 3. No happy hour -->
+<section id="s-none" class="screen" aria-label="No happy hour right now">
+  <div class="hdr">
+    <div class="brand debug-hold"><span>Brew North</span></div>
+    <div class="chips"><span class="chip js-time"></span></div>
+  </div>
+  <svg class="smalldial" viewBox="0 0 240 240" aria-hidden="true">
+    <circle cx="120" cy="120" r="118" fill="none" stroke="#2A333A" stroke-width="2" stroke-dasharray="6 6"></circle>
+    <g id="noneRot">
+      <polygon points="120,44 138,120 102,120" fill="#7D8890"></polygon>
+      <polygon points="120,172 132,120 108,120" fill="#2A333A"></polygon>
+      <circle cx="120" cy="120" r="10" fill="#0F1417" stroke="#7D8890" stroke-width="3"></circle>
+    </g>
+  </svg>
+  <div class="center">
+    <h2 class="js-none-title">Last call has been called</h2>
+    <p class="js-none-msg">No happy hours on right now.</p>
+  </div>
+  <a class="card js-next-card" href="#" target="_blank" rel="noopener">
+    <div class="eyebrow">Next up</div>
+    <div class="top"><div class="name js-next-name"></div><div class="name js-next-dist" style="font-family:var(--display)"></div></div>
+    <div class="addr js-next-when"></div>
+  </a>
+  <div class="spacer"></div>
+  <button id="anywayBtn" class="btn ghost" type="button">Point me there anyway</button>
+</section>
+
+<!-- 4. Error -->
+<section id="s-error" class="screen" aria-label="Problem">
+  <div class="hdr"><div class="brand debug-hold"><span>Brew North</span></div></div>
+  <div class="spacer"></div>
+  <div class="center">
+    <h2 class="js-err-title">Location is off</h2>
+    <p class="js-err-msg"></p>
+  </div>
+  <div class="spacer"></div>
+  <button class="btn" type="button" onclick="location.reload()">Try again</button>
+</section>
+
+<!-- Calibrate overlay -->
+<div id="calib" role="dialog" aria-modal="true" aria-labelledby="calibTitle">
+  <div style="padding-top:8vh;display:flex;justify-content:center">
+    <svg width="280" height="160" viewBox="0 0 300 170" aria-hidden="true">
+      <path d="M150 85 C 110 20, 30 20, 30 85 C 30 150, 110 150, 150 85 C 190 20, 270 20, 270 85 C 270 150, 190 150, 150 85 Z" fill="none" stroke="#2A333A" stroke-width="10" stroke-linecap="round"></path>
+      <path d="M150 85 C 110 20, 30 20, 30 85 C 30 150, 110 150, 150 85" fill="none" stroke="#F5A524" stroke-width="10" stroke-linecap="round"></path>
+      <rect x="212" y="31" width="34" height="58" rx="8" fill="#0F1417" stroke="#F3EFE6" stroke-width="3" transform="rotate(28 229 60)"></rect>
+    </svg>
+  </div>
+  <div class="center">
+    <h2 id="calibTitle">Give your phone a wiggle</h2>
+    <p>Your compass is unsure which way is north. Draw a figure-8 in the air a few times, away from metal and magnetic cases.</p>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:10px;padding:0 12px">
+    <div style="display:flex;justify-content:space-between;font-size:14px"><span style="color:var(--muted)">Compass accuracy</span><span class="js-acc-label" style="font-weight:600">Unknown</span></div>
+    <div class="accbar"><div></div><div></div><div></div></div>
+  </div>
+  <div class="spacer"></div>
+  <button id="calibDone" class="btn" type="button">Done</button>
+</div>
+
+<!-- Debug panel: long-press the logo, or open with ?debug=1 -->
+<div id="debug" aria-label="Debug panel">
+  <pre id="dbgOut"></pre>
+  <label><input type="checkbox" id="dbgFakeLoc"> Fake location (Lækjartorg)</label>
+  <label><input type="checkbox" id="dbgFakeTime"> Fake time (Thu 17:10)</label>
+  <label><input type="checkbox" id="dbgFakeHead"> Fake heading <input type="range" id="dbgHead" min="0" max="359" step="1"> <span id="dbgHeadVal"></span></label>
+  <label>Heading offset <input type="range" id="dbgOffset" min="-30" max="30" step="1"> <span id="dbgOffsetVal"></span></label>
+  <div class="dbgrow">
+    <button type="button" id="dbgCalib">Show calibration</button>
+    <button type="button" id="dbgReset">Reset settings</button>
+    <button type="button" id="dbgClose">Close</button>
+  </div>
+</div>
+
+</div>
+<script>
+(() => {
+'use strict';
+
+// ---------- constants ----------
+const DAYS = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+const DAY_LABEL = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+const WEEK = 7 * 1440;
+const FAKE_LOC = { lat: 64.1475, lon: -21.9375, acc: 5 };   // Lækjartorg
+const FAKE_MOW = 3 * 1440 + 17 * 60 + 10;                   // Thursday 17:10
+const WALK_M_PER_MIN = 80;
+
+// ---------- helpers ----------
+const $ = (s, root = document) => root.querySelector(s);
+const $$ = (s, root = document) => [...root.querySelectorAll(s)];
+const setText = (sel, text) => $$(sel).forEach(el => { el.textContent = text; });
+const pad = n => String(n).padStart(2, '0');
+const toMin = t => { const [h, m] = t.split(':').map(Number); return h * 60 + m; };
+const fmtMoW = m => { m = ((m % WEEK) + WEEK) % WEEK; const d = Math.floor(m / 1440), r = m % 1440; return DAY_LABEL[d] + ' ' + pad(Math.floor(r / 60)) + ':' + pad(r % 60); };
+const fmtDur = min => { const h = Math.floor(min / 60), m = min % 60; return h ? (m ? h + ' h ' + m + ' min' : h + ' h') : m + ' min'; };
+const fmtKr = n => n.toLocaleString('en-US') + ' kr';
+const endLabel = t => (t === '24:00' ? 'midnight' : t);
+const shortAddr = a => (a || '').split(',')[0];
+
+function geo(a, b) {
+  const R = 6371000, rad = Math.PI / 180;
+  const p1 = a.lat * rad, p2 = b.lat * rad, dl = (b.lon - a.lon) * rad;
+  const h = Math.sin((p2 - p1) / 2) ** 2 + Math.cos(p1) * Math.cos(p2) * Math.sin(dl / 2) ** 2;
+  const dist = 2 * R * Math.asin(Math.sqrt(h));
+  const y = Math.sin(dl) * Math.cos(p2);
+  const x = Math.cos(p1) * Math.sin(p2) - Math.sin(p1) * Math.cos(p2) * Math.cos(dl);
+  return { dist, bearing: (Math.atan2(y, x) / rad + 360) % 360 };
+}
+
+function tickPath(count, skip, r1, r2, c) {
+  let d = '';
+  for (let i = 0; i < count; i++) {
+    const deg = (i / count) * 360;
+    if (skip(deg)) continue;
+    const a = (deg - 90) * Math.PI / 180, cs = Math.cos(a), sn = Math.sin(a);
+    d += 'M' + (c + r1 * cs).toFixed(1) + ' ' + (c + r1 * sn).toFixed(1) + 'L' + (c + r2 * cs).toFixed(1) + ' ' + (c + r2 * sn).toFixed(1);
+  }
+  return d;
+}
+
+// ---------- settings (per-device, debug only) ----------
+const DEFAULTS = { fakeLoc: false, fakeTime: false, fakeHeadingOn: false, fakeHeading: 250, offset: 0 };
+const settings = Object.assign({}, DEFAULTS);
+try { Object.assign(settings, JSON.parse(localStorage.getItem('bn-settings') || '{}')); } catch (e) { /* storage blocked */ }
+const params = new URLSearchParams(location.search);
+if (params.get('fake') === '1') { settings.fakeLoc = true; settings.fakeTime = true; }
+function saveSettings() { try { localStorage.setItem('bn-settings', JSON.stringify(settings)); } catch (e) { /* ignore */ } }
+
+// ---------- state ----------
+const S = {
+  bars: [], dataError: null, started: false,
+  pos: null, geoError: null,
+  rawHeading: null, headingAcc: null, headingSrc: 'none', beta: null, gamma: null, gotAbs: false,
+  sx: 0, sy: 0, smooth: null, compassDenied: false, noCompass: false,
+  dispDial: 0, dispArrow: 0,
+  skip: 0, view: 'dial', anyway: null, target: null, screen: 'start',
+  lowAccSince: 0, calibSnoozeUntil: 0, last: null,
+};
+
+// ---------- data ----------
+fetch('data/bars.json', { cache: 'no-cache' })
+  .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+  .then(d => {
+    S.bars = (d.bars || []).filter(b => b.lat != null && b.lon != null && (!b.googleStatus || b.googleStatus === 'open'));
+    S.bars.forEach(b => {
+      b._win = [];
+      b.happyHours.forEach(w => w.days.forEach(day => {
+        const i = DAYS.indexOf(day);
+        if (i >= 0) b._win.push({ start: i * 1440 + toMin(w.start), end: i * 1440 + toMin(w.end), w });
+      }));
+    });
+    render();
+  })
+  .catch(e => { S.dataError = e; render(); });
+
+// ---------- time & position ----------
+function nowMoW() {
+  if (settings.fakeTime) return FAKE_MOW;
+  const d = new Date();   // Iceland is UTC all year
+  return ((d.getUTCDay() + 6) % 7) * 1440 + d.getUTCHours() * 60 + d.getUTCMinutes();
+}
+function currentPos() { return settings.fakeLoc ? FAKE_LOC : S.pos; }
+
+function compute() {
+  const now = nowMoW(), pos = currentPos();
+  const active = [];
+  let next = null;
+  for (const b of S.bars) {
+    const g = pos ? geo(pos, b) : null;
+    for (const x of b._win) {
+      if (x.start <= now && now < x.end) { active.push({ bar: b, g, endLabel: endLabel(x.w.end), left: x.end - now }); break; }
+    }
+    for (const x of b._win) {
+      const until = ((x.start - now) % WEEK + WEEK) % WEEK;
+      if (until === 0) continue;
+      if (!next || until < next.until || (until === next.until && g && next.g && g.dist < next.g.dist)) {
+        next = { bar: b, g, until, startLabel: fmtMoW(x.start), endLabel: endLabel(x.w.end) };
+      }
+    }
+  }
+  active.sort((a, b) => (a.g ? a.g.dist : 0) - (b.g ? b.g.dist : 0));
+  return { now, pos, active, next };
+}
+
+// ---------- rendering ----------
+function show(id) {
+  S.screen = id;
+  $$('.screen').forEach(s => s.classList.toggle('on', s.id === 's-' + id));
+}
+
+function priceLine(b) {
+  const a = b.priceApprox ? '~' : '';
+  const parts = [];
+  if (b.beerIsk) parts.push('Beer ' + a + fmtKr(b.beerIsk));
+  if (b.wineIsk) parts.push('Wine ' + a + fmtKr(b.wineIsk));
+  return parts.length ? parts.join(' · ') : 'Prices not listed yet';
+}
+function mapsUrl(b) {
+  return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent((b.googleName || b.name) + ', ' + (b.googleAddress || b.address || 'Reykjavík'));
+}
+function distParts(g) {
+  if (!g) return ['–', ''];
+  if (g.dist >= 1000) return [(g.dist / 1000).toFixed(g.dist >= 10000 ? 0 : 1), 'km'];
+  return [String(Math.round(g.dist / 5) * 5), 'm'];
+}
+
+function render() {
+  if (!S.started) { show('start'); return; }
+  if (S.dataError) return showError('Could not load the bar list', 'Check your connection and try again.');
+  if (!window.isSecureContext) return showError('Needs a secure page', 'Location and compass only work when the page is opened over https.');
+  if (!settings.fakeLoc && S.geoError && S.geoError.code === 1) {
+    return showError('Location is off', 'Brew North needs your location to find the nearest bar. On iPhone: Settings › Privacy & Security › Location Services › Safari Websites › While Using. On Android: tap the icon left of the address bar › Permissions › Location.');
+  }
+  const r = compute();
+  S.last = r;
+  const timeTxt = fmtMoW(r.now) + (settings.fakeTime ? '*' : '');
+  const gpsTxt = settings.fakeLoc ? 'fake GPS' : S.pos ? '±' + Math.round(S.pos.acc) + ' m' : (S.geoError ? 'GPS trouble' : 'locating…');
+  setText('.js-time', timeTxt);
+  setText('.js-status', timeTxt + ' · ' + gpsTxt);
+
+  if (!r.active.length && !S.anyway) {
+    S.target = r.next ? { bar: r.next.bar, g: r.next.g } : null;
+    show('none');
+    if (r.next) {
+      $('.js-next-card').classList.remove('hidden');
+      const sameDaySoon = r.next.until <= 6 * 60 && Math.floor(r.now / 1440) === Math.floor(((r.now + r.next.until) % WEEK) / 1440);
+      setText('.js-none-title', sameDaySoon ? 'Not quite happy hour yet' : 'Last call has been called');
+      setText('.js-none-msg', 'No happy hours on right now. The next one starts ' + r.next.startLabel + '.');
+      setText('.js-next-name', r.next.bar.googleName || r.next.bar.name);
+      setText('.js-next-dist', distParts(r.next.g).join(' '));
+      setText('.js-next-when', r.next.startLabel + ' to ' + r.next.endLabel + ' · starts in ' + fmtDur(r.next.until));
+      $('.js-next-card').href = mapsUrl(r.next.bar);
+    } else {
+      $('.js-next-card').classList.add('hidden');
+      setText('.js-none-msg', 'No happy hours found in the list.');
+    }
+    return;
+  }
+
+  show('compass');
+  let t, pill, left, count;
+  if (S.anyway) {
+    const b = S.anyway.bar;
+    t = { bar: b, g: r.pos ? geo(r.pos, b) : null };
+    pill = 'Starts ' + S.anyway.startLabel;
+    left = 'Not on yet';
+    count = '';
+    setText('.js-primary', 'Back');
+  } else {
+    const i = S.skip % r.active.length;
+    t = r.active[i];
+    pill = 'Happy hour until ' + t.endLabel;
+    left = fmtDur(t.left) + ' left';
+    count = (i + 1) + ' of ' + r.active.length + ' open now';
+    setText('.js-primary', r.active.length > 1 ? 'Next nearest' : 'Only one open');
+  }
+  S.target = t;
+  const b = t.bar, [d, unit] = distParts(t.g);
+  setText('.js-dist', d);
+  setText('.js-unit', unit);
+  setText('.js-walk', t.g ? 'about ' + Math.max(1, Math.round(t.g.dist / WALK_M_PER_MIN)) + ' min walk' : 'Finding your location…');
+  setText('.js-name', b.googleName || b.name);
+  setText('.js-addr', shortAddr(b.googleAddress || b.address));
+  setText('.js-count', count);
+  setText('.js-pill', pill);
+  $('.js-pill').classList.toggle('grey', !!S.anyway);
+  setText('.js-left', left);
+  setText('.js-prices', priceLine(b));
+  setText('.js-until', S.anyway ? pill : pill.replace('Happy hour until', 'Until'));
+  setText('.js-bsub', priceLine(b) + (t.g ? ' · ' + Math.max(1, Math.round(t.g.dist / WALK_M_PER_MIN)) + ' min walk' : ''));
+  $$('.js-maps').forEach(a => { a.href = mapsUrl(b); });
+  $('#beacon').classList.toggle('hidden', S.view !== 'beacon');
+
+  const chipRow = $('.js-compass-chip-row');
+  let chip = '';
+  if (settings.fakeHeadingOn) chip = 'Fake heading ' + settings.fakeHeading + '°';
+  else if (S.compassDenied) chip = 'Compass access denied: north is up';
+  else if (S.noCompass) chip = 'No compass found: north is up';
+  chipRow.classList.toggle('hidden', !chip);
+  setText('.js-compass-chip', chip);
+}
+
+function showError(title, msg) {
+  show('error');
+  setText('.js-err-title', title);
+  setText('.js-err-msg', msg);
+}
+
+// ---------- compass ----------
+function onHeading(h, src, acc) {
+  if (h == null || isNaN(h)) return;
+  S.rawHeading = h; S.headingSrc = src; S.headingAcc = acc;
+  const r = h * Math.PI / 180;
+  if (S.smooth == null) { S.sx = Math.cos(r); S.sy = Math.sin(r); }
+  else { S.sx = S.sx * 0.8 + Math.cos(r) * 0.2; S.sy = S.sy * 0.8 + Math.sin(r) * 0.2; }
+  S.smooth = (Math.atan2(S.sy, S.sx) * 180 / Math.PI + 360) % 360;
+  if (S.noCompass) { S.noCompass = false; render(); }
+  // iOS reports accuracy in degrees; -1 means "needs calibration"
+  const t = performance.now();
+  if (acc != null && (acc < 0 || acc > 25)) {
+    if (!S.lowAccSince) S.lowAccSince = t;
+    if (t - S.lowAccSince > 2000 && Date.now() > S.calibSnoozeUntil && S.screen === 'compass') openCalib();
+  } else S.lowAccSince = 0;
+}
+function screenAngle() {
+  return (screen.orientation && typeof screen.orientation.angle === 'number') ? screen.orientation.angle : (window.orientation || 0);
+}
+function attachOrientation() {
+  if ('ondeviceorientationabsolute' in window) {
+    window.addEventListener('deviceorientationabsolute', e => {
+      if (e.alpha == null) return;
+      S.gotAbs = true; S.beta = e.beta; S.gamma = e.gamma;
+      onHeading((360 - e.alpha + screenAngle()) % 360, 'deviceorientationabsolute', null);
+    });
+  }
+  window.addEventListener('deviceorientation', e => {
+    S.beta = e.beta; S.gamma = e.gamma;
+    if (typeof e.webkitCompassHeading === 'number') {
+      onHeading(e.webkitCompassHeading, 'webkitCompassHeading', e.webkitCompassAccuracy);
+    } else if (!S.gotAbs && e.absolute && e.alpha != null) {
+      onHeading((360 - e.alpha + screenAngle()) % 360, 'deviceorientation (absolute)', null);
+    }
+  });
+  setTimeout(() => { if (S.smooth == null) { S.noCompass = true; render(); } }, 3000);
+}
+function currentHeading() {
+  if (settings.fakeHeadingOn) return settings.fakeHeading;
+  if (S.smooth == null) return null;
+  return (S.smooth + settings.offset + 360) % 360;
+}
+function approach(cur, target) {
+  const d = ((target - cur) % 360 + 540) % 360 - 180;
+  return Math.abs(d) < 0.05 ? cur + d : cur + d * 0.25;
+}
+function frame() {
+  requestAnimationFrame(frame);
+  if (S.screen !== 'compass' && S.screen !== 'none') return;
+  const head = currentHeading() ?? 0;
+  const bearing = S.target && S.target.g ? S.target.g.bearing : head;
+  S.dispDial = approach(S.dispDial, -head);
+  S.dispArrow = approach(S.dispArrow, bearing - head);
+  $('#dialRot').setAttribute('transform', 'rotate(' + S.dispDial.toFixed(2) + ' 150 150)');
+  $('#arrowRot').setAttribute('transform', 'rotate(' + S.dispArrow.toFixed(2) + ' 150 150)');
+  $('#beaconRot').setAttribute('transform', 'rotate(' + S.dispArrow.toFixed(2) + ' 150 150)');
+  $('#noneRot').setAttribute('transform', 'rotate(' + S.dispArrow.toFixed(2) + ' 120 120)');
+}
+
+// ---------- start ----------
+let wakeLock = null;
+async function keepAwake() {
+  try { if ('wakeLock' in navigator) wakeLock = await navigator.wakeLock.request('screen'); } catch (e) { /* not allowed */ }
+}
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible' && S.started) keepAwake(); });
+
+function startGeo() {
+  if (settings.fakeLoc) return;
+  if (!('geolocation' in navigator)) { S.geoError = { code: 1 }; return; }
+  navigator.geolocation.watchPosition(
+    p => { S.pos = { lat: p.coords.latitude, lon: p.coords.longitude, acc: p.coords.accuracy }; S.geoError = null; render(); },
+    e => { S.geoError = e; render(); },
+    { enableHighAccuracy: true, maximumAge: 5000, timeout: 20000 }
+  );
+}
+
+$('#startBtn').addEventListener('click', () => {
+  // iOS: the permission request must happen directly inside the tap.
+  if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+    DeviceOrientationEvent.requestPermission()
+      .then(res => { if (res === 'granted') attachOrientation(); else { S.compassDenied = true; render(); } })
+      .catch(() => { S.compassDenied = true; render(); });
+  } else {
+    attachOrientation();
+  }
+  startGeo();
+  keepAwake();
+  S.started = true;
+  render();
+});
+
+// ---------- interactions ----------
+$('#dialBtn').addEventListener('click', () => { S.view = 'beacon'; render(); });
+$('#beaconBtn').addEventListener('click', () => { S.view = 'dial'; render(); });
+$$('.js-primary').forEach(btn => btn.addEventListener('click', () => {
+  if (S.anyway) { S.anyway = null; render(); return; }
+  S.skip++; render();
+}));
+$('#anywayBtn').addEventListener('click', () => {
+  if (S.last && S.last.next) { S.anyway = S.last.next; render(); }
+});
+
+function openCalib() { $('#calib').classList.add('on'); }
+$('.js-open-calib').addEventListener('click', openCalib);
+$('#calibDone').addEventListener('click', () => {
+  $('#calib').classList.remove('on');
+  S.calibSnoozeUntil = Date.now() + 60000;
+  S.lowAccSince = 0;
+});
+
+// ---------- debug panel ----------
+const dbg = $('#debug');
+function syncDebugControls() {
+  $('#dbgFakeLoc').checked = settings.fakeLoc;
+  $('#dbgFakeTime').checked = settings.fakeTime;
+  $('#dbgFakeHead').checked = settings.fakeHeadingOn;
+  $('#dbgHead').value = settings.fakeHeading;
+  $('#dbgHeadVal').textContent = settings.fakeHeading + '°';
+  $('#dbgOffset').value = settings.offset;
+  $('#dbgOffsetVal').textContent = (settings.offset > 0 ? '+' : '') + settings.offset + '°';
+}
+function onSetting() { saveSettings(); syncDebugControls(); if (settings.fakeLoc === false && S.started && !S.pos) startGeo(); render(); }
+$('#dbgFakeLoc').addEventListener('change', e => { settings.fakeLoc = e.target.checked; onSetting(); });
+$('#dbgFakeTime').addEventListener('change', e => { settings.fakeTime = e.target.checked; onSetting(); });
+$('#dbgFakeHead').addEventListener('change', e => { settings.fakeHeadingOn = e.target.checked; onSetting(); });
+$('#dbgHead').addEventListener('input', e => { settings.fakeHeading = Number(e.target.value); onSetting(); });
+$('#dbgOffset').addEventListener('input', e => { settings.offset = Number(e.target.value); onSetting(); });
+$('#dbgCalib').addEventListener('click', openCalib);
+$('#dbgReset').addEventListener('click', () => { Object.assign(settings, DEFAULTS); onSetting(); });
+$('#dbgClose').addEventListener('click', () => dbg.classList.remove('on'));
+function toggleDebug() { syncDebugControls(); dbg.classList.toggle('on'); }
+$$('.debug-hold').forEach(el => {
+  let timer = null;
+  el.addEventListener('pointerdown', () => { timer = setTimeout(toggleDebug, 650); });
+  ['pointerup', 'pointerleave', 'pointercancel'].forEach(ev => el.addEventListener(ev, () => clearTimeout(timer)));
+  el.addEventListener('contextmenu', e => e.preventDefault());
+});
+if (params.get('debug') === '1') toggleDebug();
+
+const f1 = v => (v == null ? '–' : (Math.round(v * 10) / 10).toString());
+setInterval(() => {
+  const acc = S.headingAcc;
+  const level = acc == null ? 0 : acc < 0 ? 1 : acc <= 10 ? 3 : acc <= 25 ? 2 : 1;
+  $('.js-acc-label').textContent = level === 0 ? 'Unknown' : ['', 'Low', 'Medium', 'High'][level];
+  $$('.accbar div').forEach((el, i) => el.classList.toggle('lit', i < level));
+  if (!dbg.classList.contains('on')) return;
+  const p = currentPos(), t = S.target;
+  $('#dbgOut').textContent = [
+    'screen    ' + S.screen + ' / view ' + S.view,
+    'heading   raw ' + f1(S.rawHeading) + '  smooth ' + f1(S.smooth) + '  used ' + f1(currentHeading()),
+    'source    ' + S.headingSrc + (S.compassDenied ? ' (denied)' : '') + (S.noCompass ? ' (none seen)' : ''),
+    'accuracy  ' + (acc == null ? 'n/a (Android gives none)' : f1(acc) + '°'),
+    'tilt      beta ' + f1(S.beta) + '  gamma ' + f1(S.gamma),
+    'position  ' + (p ? p.lat.toFixed(5) + ', ' + p.lon.toFixed(5) + ' ±' + Math.round(p.acc) + ' m' : '–') + (settings.fakeLoc ? ' (fake)' : ''),
+    'geo error ' + (S.geoError ? S.geoError.code + ' ' + (S.geoError.message || '') : '–'),
+    'time      ' + fmtMoW(nowMoW()) + (settings.fakeTime ? ' (fake)' : ''),
+    'target    ' + (t ? (t.bar.googleName || t.bar.name) : '–'),
+    'bearing   ' + (t && t.g ? f1(t.g.bearing) + '°  dist ' + Math.round(t.g.dist) + ' m' : '–'),
+    'open now  ' + (S.last ? S.last.active.length : '–') + '  skip ' + S.skip + '  bars ' + S.bars.length,
+  ].join('\n');
+}, 250);
+
+// refresh "open now" as the clock moves
+setInterval(render, 15000);
+
+// ---------- static bits ----------
+$$('.ticks24').forEach(p => p.setAttribute('d', tickPath(24, d => d === 0, 80, 88, 100) + tickPath(4, d => d === 0, 72, 88, 100)));
+$('#ticksMinor').setAttribute('d', tickPath(72, d => d % 30 === 0, 136, 143, 150));
+$('#ticksMajor').setAttribute('d', tickPath(12, () => false, 129, 143, 150));
+requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
