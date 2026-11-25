@@ -3,7 +3,7 @@
 A compass that points to the nearest bar with a happy hour on right now, in Reykjavík.
 It is a plain static web app: no build step, no framework, no server code.
 
-Live (once GitHub Pages is on): https://sm6403.github.io/brew-north/
+Live (once GitHub Pages is on): https://sm6403.github.io/Brew-North/
 
 ## Files
 
@@ -16,14 +16,17 @@ Live (once GitHub Pages is on): https://sm6403.github.io/brew-north/
 
 ## Publish with GitHub Pages (one-off)
 
-1. On GitHub (signed in as `sm6403`), create a new **public** repo called `brew-north`, with no README.
+1. On GitHub (signed in as `sm6403`), create a new **public** repo called `Brew-North`, with no README.
 2. From this folder:
    ```
-   git remote add origin https://github.com/sm6403/brew-north.git
+   git remote add origin https://sm6403@github.com/sm6403/Brew-North.git
    git push -u origin main
    ```
+   This machine's global Git setup signs in to GitHub through the `gh` CLI as the work account, so this repo
+   overrides that locally to use Git Credential Manager (`credential.https://github.com.helper` = `""` then `manager`
+   in `.git/config`) and signs in as sm6403 via the browser.
 3. In the repo: **Settings › Pages › Build and deployment › Deploy from a branch**, pick `main` and `/ (root)`, then Save.
-4. After a minute or two the app is at https://sm6403.github.io/brew-north/
+4. After a minute or two the app is at https://sm6403.github.io/Brew-North/
 
 After that, every `git push` redeploys (allow a minute, then pull to refresh on the phone).
 
