@@ -1,0 +1,22 @@
+name: Check bar list
+
+on:
+  pull_request:
+    paths:
+      - data/bars.json
+      - tools/validate_bars.py
+  push:
+    branches: [main]
+    paths:
+      - data/bars.json
+      - tools/validate_bars.py
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 tools/validate_bars.py data/bars.json

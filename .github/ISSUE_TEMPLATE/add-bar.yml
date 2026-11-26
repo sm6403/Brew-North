@@ -1,0 +1,74 @@
+name: Add a bar
+description: Tell us about a Reykjavík bar with a happy hour that Brew North is missing.
+title: "[New bar] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks! Fill in what you know; a maintainer adds it to the list.
+        Already listed but wrong? Use **Fix a bar** instead.
+
+  - type: input
+    id: name
+    attributes:
+      label: Bar name
+      placeholder: e.g. The English Pub
+    validations:
+      required: true
+
+  - type: input
+    id: maps
+    attributes:
+      label: Google Maps link
+      description: Search for the bar on Google Maps, tap Share and paste the link. This gives us the exact location.
+      placeholder: https://maps.app.goo.gl/...
+    validations:
+      required: true
+
+  - type: textarea
+    id: hours
+    attributes:
+      label: Happy hour days and times
+      description: One line per window. Use 24-hour times. If it runs past midnight, say so.
+      placeholder: |
+        Mon-Fri 16:00-19:00
+        Sat-Sun 15:00-18:00
+        Every day 23:00-01:00 (late happy hour)
+    validations:
+      required: true
+
+  - type: input
+    id: beer
+    attributes:
+      label: Cheapest happy hour beer (ISK)
+      placeholder: e.g. 950
+
+  - type: input
+    id: wine
+    attributes:
+      label: Cheapest happy hour wine (ISK)
+      placeholder: e.g. 1100
+
+  - type: textarea
+    id: deals
+    attributes:
+      label: Other deals
+      description: Cocktail prices, 2-for-1s, special days, anything worth knowing.
+
+  - type: dropdown
+    id: how
+    attributes:
+      label: How do you know?
+      options:
+        - I was there recently
+        - The bar's own website or social media
+        - A guide or listing site
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: source
+    attributes:
+      label: Link to the source (if there is one)
+      placeholder: https://...

@@ -1,0 +1,54 @@
+name: Fix a bar
+description: A listed bar has the wrong times or prices, has moved, or has closed.
+title: "[Fix bar] "
+body:
+  - type: input
+    id: name
+    attributes:
+      label: Bar name
+      description: As it appears in the app.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: what
+    attributes:
+      label: What's wrong?
+      multiple: true
+      options:
+        - Happy hour days or times
+        - Prices or deals
+        - The bar has closed
+        - The bar no longer does a happy hour
+        - The compass points to the wrong place
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: correct
+    attributes:
+      label: What it should be
+      description: Give the correct details, using 24-hour times.
+      placeholder: |
+        Happy hour is now Mon-Thu 16:00-18:00, beer 1000 ISK
+    validations:
+      required: true
+
+  - type: dropdown
+    id: how
+    attributes:
+      label: How do you know?
+      options:
+        - I was there recently
+        - The bar's own website or social media
+        - A guide or listing site
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: source
+    attributes:
+      label: Link to the source (if there is one)
+      placeholder: https://...
